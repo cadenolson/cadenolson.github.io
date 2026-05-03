@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caden Olson — Washington Reporter</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0f0f0d;
+    --off-black: #1a1a17;
+    --dark-gray: #2c2c28;
+    --mid-gray: #6b6b64;
+    --light-gray: #b8b8b0;
+    --cream: #f5f3ee;
+    --off-white: #faf9f6;
+    --white: #ffffff;
+    --red: #c0392b;
+    --rule: 1px solid #1a1a17;
+    --rule-light: 1px solid #d4d0c8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--off-white);
+    color: var(--black);
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 3px solid var(--black);
+    padding: 0;
+    background: var(--white);
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 48px;
+    border-bottom: var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--mid-gray);
+    letter-spacing: 0.04em;
+  }
+
+  .masthead-top a {
+    color: var(--mid-gray);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .masthead-top a:hover { color: var(--red); }
+
+  .masthead-main {
+    text-align: center;
+    padding: 36px 48px 28px;
+    border-bottom: var(--rule);
+  }
+
+  .masthead-main h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--black);
+  }
+
+  .masthead-tagline {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--mid-gray);
+    margin-top: 12px;
+    letter-spacing: 0.01em;
+  }
+
+  .masthead-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+  }
+
+  .masthead-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+    text-decoration: none;
+    padding: 13px 28px;
+    border-right: var(--rule);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .masthead-nav a:first-child { border-left: var(--rule); }
+  .masthead-nav a:hover { background: var(--black); color: var(--white); }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  section { padding: 72px 0; border-bottom: 3px solid var(--black); }
+  section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--light-gray);
+  }
+
+  /* ── BIO ── */
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .bio-left {
+    padding-right: 56px;
+    border-right: var(--rule);
+  }
+
+  .bio-right {
+    padding-left: 56px;
+  }
+
+  .bio-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+
+  .bio-headline em {
+    font-style: italic;
+    color: var(--red);
+  }
+
+  .bio-text {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--off-black);
+    margin-bottom: 16px;
+  }
+
+  .bio-facts {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: var(--rule);
+  }
+
+  .bio-fact {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: var(--rule-light);
+    font-size: 14px;
+  }
+
+  .bio-fact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--mid-gray);
+    text-transform: uppercase;
+  }
+
+  .bio-fact-value {
+    font-size: 13px;
+    color: var(--off-black);
+    text-align: right;
+  }
+
+  .bio-fact-value a {
+    color: var(--red);
+    text-decoration: none;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--black);
+    border: var(--rule);
+    margin-bottom: 32px;
+  }
+
+  .stat-cell {
+    background: var(--white);
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--black);
+    display: block;
+  }
+
+  .stat-desc {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* ── CLIPS ── */
+  .clips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .clip-card {
+    padding: 32px 0;
+    border-bottom: var(--rule-light);
+    border-right: var(--rule);
+    padding-right: 40px;
+    padding-left: 0;
+  }
+
+  .clip-card:nth-child(even) {
+    padding-right: 0;
+    padding-left: 40px;
+    border-right: none;
+  }
+
+  .clip-card:nth-last-child(-n+2) {
+    border-bottom: none;
+  }
+
+  .clip-outlet {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  .clip-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    color: var(--black);
+  }
+
+  .clip-title a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .clip-title a:hover { border-color: var(--red); }
+
+  .clip-desc {
+    font-size: 14px;
+    color: var(--mid-gray);
+    line-height: 1.6;
+  }
+
+  .clip-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--off-black);
+    border: 1px solid var(--light-gray);
+    padding: 3px 8px;
+    margin-top: 14px;
+    margin-right: 4px;
+  }
+
+  /* ── VIDEO ── */
+  .video-banner {
+    background: var(--black);
+    color: var(--white);
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .video-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .video-headline em { color: #e8c84a; font-style: italic; }
+
+  .video-body {
+    font-size: 15px;
+    color: #b8b8b0;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .video-link {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    border: 1px solid #666;
+    padding: 12px 24px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .video-link:hover { background: #e8c84a; border-color: #e8c84a; color: var(--black); }
+
+  .video-stats {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 1px;
+    background: #333;
+  }
+
+  .video-stat {
+    background: #1a1a17;
+    padding: 28px 32px;
+  }
+
+  .video-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: #e8c84a;
+    line-height: 1;
+    display: block;
+  }
+
+  .video-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #666;
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* ── ABOUT / RESUME ── */
+  .resume-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 56px;
+  }
+
+  .experience-entry {
+    padding: 28px 0;
+    border-bottom: var(--rule-light);
+  }
+
+  .experience-entry:last-child { border-bottom: none; }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+
+  .exp-org {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .exp-dates {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--mid-gray);
+  }
+
+  .exp-role {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--mid-gray);
+    margin-bottom: 12px;
+  }
+
+  .exp-bullets {
+    padding-left: 16px;
+    list-style: none;
+  }
+
+  .exp-bullets li {
+    font-size: 14px;
+    color: var(--off-black);
+    line-height: 1.6;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 16px;
+  }
+
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: -4px;
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  .sidebar-block {
+    padding: 24px;
+    border: var(--rule);
+    margin-bottom: 24px;
+    background: var(--white);
+  }
+
+  .sidebar-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: var(--rule);
+  }
+
+  .sidebar-item {
+    font-size: 13px;
+    padding: 8px 0;
+    border-bottom: var(--rule-light);
+    color: var(--off-black);
+  }
+
+  .sidebar-item:last-child { border-bottom: none; }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--black);
+    color: var(--white);
+    border-bottom: none;
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    align-items: center;
+  }
+
+  .contact-left {
+    padding-right: 64px;
+    border-right: 1px solid #333;
+  }
+
+  .contact-right { padding-left: 64px; }
+
+  .contact-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 54px);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+
+  .contact-headline em { font-style: italic; color: var(--red); }
+
+  .contact-sub {
+    font-size: 15px;
+    color: #888;
+    line-height: 1.7;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid #222;
+    text-decoration: none;
+    color: var(--white);
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--red); }
+  .contact-link:last-child { border-bottom: none; }
+
+  .contact-link-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #666;
+    min-width: 60px;
+  }
+
+  .contact-link-value {
+    font-size: 14px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--off-black);
+    color: #555;
+    text-align: center;
+    padding: 20px 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── UTILITIES ── */
+  .divider-rule {
+    width: 48px;
+    height: 3px;
+    background: var(--red);
+    margin: 20px 0 28px;
+  }
+
+  @media (max-width: 768px) {
+    .container { padding: 0 20px; }
+    .masthead-top { padding: 10px 20px; font-size: 10px; }
+    .masthead-main { padding: 24px 20px 18px; }
+    .bio-grid, .clips-grid, .video-banner, .resume-grid, .contact-inner { grid-template-columns: 1fr; }
+    .bio-left { padding-right: 0; border-right: none; padding-bottom: 40px; border-bottom: var(--rule); }
+    .bio-right { padding-left: 0; padding-top: 40px; }
+    .clip-card, .clip-card:nth-child(even) { padding-left: 0; padding-right: 0; border-right: none; }
+    .clip-card:nth-last-child(-n+2) { border-bottom: var(--rule-light); }
+    .clip-card:last-child { border-bottom: none; }
+    .video-banner { padding: 32px 20px; }
+    .video-stats { grid-template-rows: auto; grid-template-columns: 1fr 1fr; }
+    .contact-left { padding-right: 0; border-right: none; border-bottom: 1px solid #333; padding-bottom: 40px; }
+    .contact-right { padding-left: 0; padding-top: 40px; }
+    .masthead-nav a { padding: 12px 16px; font-size: 10px; }
+    section { padding: 48px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-top">
+    <span>Washington, D.C.</span>
+    <span>Reporter · Columnist · Video Journalist</span>
+    <span id="date-display"></span>
+  </div>
+  <div class="masthead-main">
+    <h1>Caden Olson</h1>
+    <p class="masthead-tagline">Washington Reporter — Congress, the White House &amp; National Politics</p>
+  </div>
+  <nav class="masthead-nav">
+    <a href="#bio">About</a>
+    <a href="#clips">Clips</a>
+    <a href="#video">Video</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- BIO -->
+<section id="bio">
+  <div class="container">
+    <div class="section-label">About</div>
+    <div class="bio-grid">
+      <div class="bio-left">
+        <h2 class="bio-headline">Reporting from the <em>center of American power</em></h2>
+        <div class="divider-rule"></div>
+        <p class="bio-text">Caden Olson is a Washington reporter covering Congress, the White House, the Supreme Court, and national politics. He is one of two staff reporters at Matt Taibbi's Racket News, one of Substack's top independent political publications, where he also authors <em>The Swamp Log</em> — a weekly dispatch from the nation's capital.</p>
+        <p class="bio-text">Before Racket News, Caden spent six months as a Congressional Reporter at The Daily Caller, reporting daily from Capitol Hill and producing a widely-shared series of on-camera confrontations with sitting members of Congress and administration officials — including a 2.6 million-view interview with Rep. Nancy Mace filmed on the day of the assassination of Charlie Kirk.</p>
+        <p class="bio-text">He is a graduate of Colorado State University with a B.A. in Journalism and Media Communications (GPA: 3.87) and completed the National Journalism Center program in Washington, D.C.</p>
+        <div class="bio-facts">
+          <div class="bio-fact">
+            <span class="bio-fact-label">Currently</span>
+            <span class="bio-fact-value">Racket News · Feb. 2026–Present</span>
+          </div>
+          <div class="bio-fact">
+            <span class="bio-fact-label">Beat</span>
+            <span class="bio-fact-value">Congress, White House, SCOTUS, K Street</span>
+          </div>
+          <div class="bio-fact">
+            <span class="bio-fact-label">Email</span>
+            <span class="bio-fact-value"><a href="mailto:olsoncadenderek@gmail.com">olsoncadenderek@gmail.com</a></span>
+          </div>
+          <div class="bio-fact">
+            <span class="bio-fact-label">X / Twitter</span>
+            <span class="bio-fact-value"><a href="https://x.com/cadenolson_" target="_blank">@cadenolson_</a></span>
+          </div>
+        </div>
+      </div>
+      <div class="bio-right">
+        <div class="stat-grid">
+          <div class="stat-cell">
+            <span class="stat-num">2.6M</span>
+            <span class="stat-desc">Views, top video</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num">296</span>
+            <span class="stat-desc">Days tracked, USS Ford story</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num">38</span>
+            <span class="stat-desc">Day DHS shutdown covered</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num">3.87</span>
+            <span class="stat-desc">GPA, Colorado State</span>
+          </div>
+        </div>
+        <div class="sidebar-block">
+          <div class="sidebar-title">Beats Covered</div>
+          <div class="sidebar-item">U.S. Senate &amp; House of Representatives</div>
+          <div class="sidebar-item">The White House &amp; Executive Branch</div>
+          <div class="sidebar-item">The Supreme Court</div>
+          <div class="sidebar-item">National Security &amp; Defense</div>
+          <div class="sidebar-item">K Street &amp; Lobbying</div>
+          <div class="sidebar-item">FISA &amp; Intelligence Oversight</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIPS -->
+<section id="clips">
+  <div class="container">
+    <div class="section-label">Selected Clips</div>
+    <div class="clips-grid">
+
+      <div class="clip-card">
+        <div class="clip-outlet">Racket News · Apr. 2026</div>
+        <h3 class="clip-title"><a href="https://racket.news" target="_blank">The Swamp Log</a></h3>
+        <p class="clip-desc">A weekly column synthesizing developments across the executive, legislative, and judicial branches — drawing on congressional records, hearing transcripts, OSINT, and original source development.</p>
+        <span class="clip-tag">Column</span>
+        <span class="clip-tag">Weekly</span>
+      </div>
+
+      <div class="clip-card">
+        <div class="clip-outlet">Racket News · Apr. 2026</div>
+        <h3 class="clip-title"><a href="https://racket.news" target="_blank">The Ford is Getting Tired</a></h3>
+        <p class="clip-desc">A narrative feature chronicling the record-breaking 296-day deployment of the USS Gerald R. Ford — the longest carrier deployment since Vietnam — tracing its journey from NATO exercises to the Maduro capture to the Iran War.</p>
+        <span class="clip-tag">National Security</span>
+        <span class="clip-tag">Feature</span>
+      </div>
+
+      <div class="clip-card">
+        <div class="clip-outlet">Racket News · Apr. 2026</div>
+        <h3 class="clip-title"><a href="https://racket.news" target="_blank">What the F*ck Is Cloture?</a></h3>
+        <p class="clip-desc">A deep-dive legislative explainer on Senate filibuster mechanics and the SAVE America Act standoff, tracing unlimited debate from 1789 and drawing parallels between Majority Leader Thune and LBJ's landmark civil rights maneuvering.</p>
+        <span class="clip-tag">Congress</span>
+        <span class="clip-tag">Explainer</span>
+      </div>
+
+      <div class="clip-card">
+        <div class="clip-outlet">Racket News · Apr. 2026</div>
+        <h3 class="clip-title"><a href="https://racket.news" target="_blank">American Hysteria</a></h3>
+        <p class="clip-desc">A long-form historical analysis tracing nine episodes of American moral panic — from Salem to McCarthyism to the Epstein files — examining the national predilection for conspiracy and scapegoating across three centuries of primary sources.</p>
+        <span class="clip-tag">History</span>
+        <span class="clip-tag">Analysis</span>
+      </div>
+
+      <div class="clip-card">
+        <div class="clip-outlet">Racket News · Feb. 2026</div>
+        <h3 class="clip-title"><a href="https://racket.news" target="_blank">Dr. Jekyll and Ms. Bondi</a></h3>
+        <p class="clip-desc">Reported in person from the press bullpen at AG Pam Bondi's House Judiciary Committee hearing — four-plus hours of Epstein disclosures, FISA surveillance of Congress members, and political theater.</p>
+        <span class="clip-tag">Judiciary</span>
+        <span class="clip-tag">In Person</span>
+      </div>
+
+      <div class="clip-card">
+        <div class="clip-outlet">The Daily Caller · 2025–2026</div>
+        <h3 class="clip-title"><a href="https://dailycaller.com" target="_blank">Capitol Hill Reporting</a></h3>
+        <p class="clip-desc">Daily reporting from the Hill — breaking news, source cultivation, original quotes and on-camera interviews with legislators and administration officials. FOIA requests and Mandatory Declassification Reviews for investigative angles.</p>
+        <span class="clip-tag">Breaking News</span>
+        <span class="clip-tag">Congress</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video" style="padding: 0; background: var(--black);">
+  <div style="padding: 0;">
+    <div class="video-banner">
+      <div>
+        <div style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #666; margin-bottom: 16px;">Video Journalism</div>
+        <h2 class="video-headline">Capitol Hill. <em>In the room.</em> On camera.</h2>
+        <p class="video-body">Fully self-produced confrontations and news packages with sitting senators, House members, and administration officials. Most-viewed: a 2.6 million-view interview with Rep. Nancy Mace, filmed on Capitol Hill the day of the Charlie Kirk assassination. A street-reporting package in Anacostia on crime was shared by White House Press Secretary Karoline Leavitt.</p>
+        <a href="https://x.com/cadenolson_" target="_blank" class="video-link">Watch on X → @cadenolson_</a>
+      </div>
+      <div class="video-stats">
+        <div class="video-stat">
+          <span class="video-stat-num">2.6M</span>
+          <span class="video-stat-label">Views on top video</span>
+        </div>
+        <div class="video-stat">
+          <span class="video-stat-num">100%</span>
+          <span class="video-stat-label">Self-produced</span>
+        </div>
+        <div class="video-stat">
+          <span class="video-stat-num">WH</span>
+          <span class="video-stat-label">Press sec. pickup</span>
+        </div>
+        <div class="video-stat">
+          <span class="video-stat-num">DC</span>
+          <span class="video-stat-label">In-field reporting</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">Experience &amp; Education</div>
+    <div class="resume-grid">
+      <div>
+        <div class="experience-entry">
+          <div class="exp-header">
+            <span class="exp-org">Matt Taibbi's Racket News</span>
+            <span class="exp-dates">Feb. 2026 – Present</span>
+          </div>
+          <div class="exp-role">Washington Reporter · Washington, D.C.</div>
+          <ul class="exp-bullets">
+            <li>One of two staff reporters covering Congress, the White House, the Supreme Court, and K Street for one of Substack's top independent political publications</li>
+            <li>Author of <em>The Swamp Log</em>, a weekly column drawing on congressional records, hearing transcripts, open-source intelligence, and original source development</li>
+            <li>Reported on the Iran War, the 38-day DHS shutdown, FISA reauthorization, and Supreme Court election law cases</li>
+            <li>Covered high-profile events in person including the State of the Union and AG Bondi's House Judiciary Committee hearing</li>
+          </ul>
+        </div>
+
+        <div class="experience-entry">
+          <div class="exp-header">
+            <span class="exp-org">The Daily Caller</span>
+            <span class="exp-dates">Aug. 2025 – Feb. 2026</span>
+          </div>
+          <div class="exp-role">Congressional Reporter · Washington, D.C.</div>
+          <ul class="exp-bullets">
+            <li>Reported daily from Capitol Hill, cultivating sources among legislators and staff to break news and obtain original quotes and on-camera interviews</li>
+            <li>Filed FOIA requests and Mandatory Declassification Reviews to pursue original investigative angles</li>
+            <li>Produced self-shot Capitol Hill video series viewed millions of times across social platforms</li>
+          </ul>
+        </div>
+
+        <div class="experience-entry">
+          <div class="exp-header">
+            <span class="exp-org">National Journalism Center, YAF</span>
+            <span class="exp-dates">May – Aug. 2025</span>
+          </div>
+          <div class="exp-role">Reporting Intern · Washington, D.C.</div>
+          <ul class="exp-bullets">
+            <li>Completed intensive journalism training covering political reporting, media law, and investigative techniques alongside working journalists and editors</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="sidebar-block">
+          <div class="sidebar-title">Education</div>
+          <p style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; margin-bottom: 4px;">Colorado State University</p>
+          <p style="font-size: 13px; font-style: italic; color: var(--mid-gray); margin-bottom: 12px;">B.A., Journalism &amp; Media Communications · May 2025</p>
+          <p style="font-size: 13px; color: var(--off-black);">GPA: <strong>3.87</strong></p>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="sidebar-title">Skills</div>
+          <div class="sidebar-item">Breaking News Reporting</div>
+          <div class="sidebar-item">Long-form Feature Writing</div>
+          <div class="sidebar-item">Video Production &amp; Editing</div>
+          <div class="sidebar-item">FOIA &amp; MDR Requests</div>
+          <div class="sidebar-item">Open-Source Intelligence</div>
+          <div class="sidebar-item">Source Cultivation</div>
+          <div class="sidebar-item">Congressional Procedure</div>
+          <div class="sidebar-item">Live Event Reporting</div>
+        </div>
+
+        <div class="sidebar-block">
+          <div class="sidebar-title">Press Credentials</div>
+          <div class="sidebar-item">U.S. Capitol Press Gallery</div>
+          <div class="sidebar-item">White House Press Corps</div>
+          <div class="sidebar-item">House Judiciary Committee</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #555; margin-bottom: 20px;">Get in Touch</div>
+        <h2 class="contact-headline">Let's talk <em>journalism.</em></h2>
+        <p class="contact-sub">Available for staff reporting positions, freelance assignments, and press inquiries. Based in Washington, D.C.</p>
+      </div>
+      <div class="contact-right">
+        <a href="mailto:olsoncadenderek@gmail.com" class="contact-link">
+          <span class="contact-link-label">Email</span>
+          <span class="contact-link-value">olsoncadenderek@gmail.com</span>
+        </a>
+        <a href="https://x.com/cadenolson_" target="_blank" class="contact-link">
+          <span class="contact-link-label">X / Twitter</span>
+          <span class="contact-link-value">@cadenolson_</span>
+        </a>
+        <a href="tel:7209894083" class="contact-link">
+          <span class="contact-link-label">Phone</span>
+          <span class="contact-link-value">720-989-4083</span>
+        </a>
+        <a href="#clips" class="contact-link">
+          <span class="contact-link-label">Clips</span>
+          <span class="contact-link-value">View selected work above</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Caden Olson &nbsp;·&nbsp; Washington, D.C. &nbsp;·&nbsp; olsoncadenderek@gmail.com</span>
+</footer>
+
+<script>
+  const d = new Date();
+  const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('date-display').textContent = d.toLocaleDateString('en-US', opts);
+</script>
+
+</body>
+</html>
